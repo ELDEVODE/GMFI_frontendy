@@ -1,0 +1,23 @@
+export { default as HeroBg } from "./HeroBg1.jpg";
+export { default as mainType } from "./mainType1.png";
+export { default as logo } from "./logo.png";
+export { default as cutout1 } from "./cutouts/cutout1.png";
+export { default as cutout2 } from "./cutouts/cutout2.png";
+export { default as cutout3 } from "./cutouts/cutout3.png";
+export { default as cutout4 } from "./cutouts/cutout4.png";
+export { default as cutout5 } from "./cutouts/cutout5.png";
+export { default as cutout6 } from "./cutouts/cutout6.png";
+export { default as cutout7 } from "./cutouts/cutout7.png";
+export { default as flybot } from "./cutouts/flybot.png";
+export { default as community1 } from "./cutouts/community1.png";
+export { default as community2 } from "./cutouts/community2.png";
+export { default as float1 } from "./cutouts/float1.png";
+export { default as float2 } from "./cutouts/float2.png";
+export { default as TopBg } from "./TopBg.jpeg";
+export { default as About1 } from "./About1.jpg";
+export { default as CommunityBg } from "./CommunityBg.jpg";
+export { default as CommunityBg1 } from "./CommunityBg1.jpg";
+export { default as bg } from "./bg.jpg";
+
+export { default as stars } from "./stars.png";
+export { default as twinkling } from "./twinkling.png";

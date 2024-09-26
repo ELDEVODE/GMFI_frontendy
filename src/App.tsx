@@ -1,30 +1,31 @@
-// App.tsx
-import { useState } from "react";
-import { ConnectButton, useCurrentAccount } from "@mysten/dapp-kit";
-import { Flex } from "@radix-ui/themes";
-import { CreateGame } from "./CreateGame"; // Import the CreateGame component
-import { GameInfo } from "./GameInfo"; // Import the GameInfo component
-import { RegisterPlayer } from "./RegisterPlayer";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import GamePage from "./pages/Game/GamePage";
+import Layout from "./components/Layout";
+
+// New import for GameLayout
+import GameLayout from "./components/GameLayout";
 
 function App() {
-  const [gameId, setGameId] = useState<string | null>(null);
-  const account = useCurrentAccount();
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <ConnectButton />
-        {account && <div>Connected to {account.address}</div>}
-      </header>
+    <Router>
+      <Routes>
+        {/* Pages with Layout */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<LandingPage />} />
+          {/* Add other page routes here */}
+        </Route>
 
-      <main>
-        <Flex direction="column" gap="4">
-          <CreateGame onCreated={setGameId} />
-          {gameId && <GameInfo gameId={gameId} />}
-        </Flex>
-      </main>
-      <RegisterPlayer />
-    </div>
+        {/* game Landing */}
+        <Route path="/game" element={<GamePage />} />
+
+        {/* Game with GameLayout */}
+        {/* <Route element={<GameLayout />}>
+          
+        </Route> */}
+      </Routes>
+    </Router>
   );
 }
 

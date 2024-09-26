@@ -1,12 +1,17 @@
 import { Button, Container } from "@radix-ui/themes";
-import { useSignAndExecuteTransaction, useSuiClient, useCurrentAccount } from "@mysten/dapp-kit";
+import {
+  useSignAndExecuteTransaction,
+  useSuiClient,
+  useCurrentAccount,
+} from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
-import { useNetworkVariable } from "./networkConfig";
+import { useNetworkVariable } from "../networkConfig";
 
-export function RegisterPlayer() {
+function RegisterPlayer() {
   const gamePackageId = useNetworkVariable("gamePackageId");
-  const gameStoreId = "0xd1f34ced928f8c49559e0f2c5399e51b07ab350a11d7856c2d56257ee1e12c1e"
-//   const suiClient = useSuiClient();
+  const gameStoreId =
+    "0xd1f34ced928f8c49559e0f2c5399e51b07ab350a11d7856c2d56257ee1e12c1e";
+  //   const suiClient = useSuiClient();
   const currentAccount = useCurrentAccount();
   const { mutate: signAndExecute } = useSignAndExecuteTransaction();
 
@@ -32,7 +37,9 @@ export function RegisterPlayer() {
 
   function registerPlayer() {
     if (!gamePackageId || !gameStoreId) {
-      console.error("Game Package ID or Game Store ID is undefined. Check network configuration.");
+      console.error(
+        "Game Package ID or Game Store ID is undefined. Check network configuration."
+      );
       return;
     }
 
@@ -60,3 +67,5 @@ export function RegisterPlayer() {
     );
   }
 }
+
+export default RegisterPlayer;

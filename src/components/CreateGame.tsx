@@ -1,9 +1,13 @@
 import { Button, Container } from "@radix-ui/themes";
-import { useSignAndExecuteTransaction, useSuiClient, useCurrentAccount } from "@mysten/dapp-kit";
+import {
+  useSignAndExecuteTransaction,
+  useSuiClient,
+  useCurrentAccount,
+} from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
-import { useNetworkVariable } from "./networkConfig";
+import { useNetworkVariable } from "../networkConfig";
 
-export function CreateGame({ onCreated }: { onCreated: (id: string) => void }) {
+function CreateGame({ onCreated }: { onCreated: (id: string) => void }) {
   const gamePackageId = useNetworkVariable("gamePackageId");
   const suiClient = useSuiClient();
   const currentAccount = useCurrentAccount();
@@ -40,7 +44,9 @@ export function CreateGame({ onCreated }: { onCreated: (id: string) => void }) {
 
   function createGame(playerAddress: string) {
     if (!gamePackageId) {
-      console.error("Game Package ID is undefined. Check network configuration.");
+      console.error(
+        "Game Package ID is undefined. Check network configuration."
+      );
       return;
     }
 
@@ -49,8 +55,10 @@ export function CreateGame({ onCreated }: { onCreated: (id: string) => void }) {
     tx.moveCall({
       target: `${gamePackageId}::game::create_single_player_game`,
       arguments: [
-        tx.object("0xd1f34ced928f8c49559e0f2c5399e51b07ab350a11d7856c2d56257ee1e12c1e"), // game_store
-        tx.pure.address(playerAddress)  // player as struct reference
+        tx.object(
+          "0xd1f34ced928f8c49559e0f2c5399e51b07ab350a11d7856c2d56257ee1e12c1e"
+        ), // game_store
+        tx.pure.address(playerAddress), // player as struct reference
       ],
     });
 
@@ -80,3 +88,5 @@ export function CreateGame({ onCreated }: { onCreated: (id: string) => void }) {
     );
   }
 }
+
+export default CreateGame;

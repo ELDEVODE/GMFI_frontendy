@@ -1,6 +1,6 @@
 export { default as HeroBg } from "./HeroBg1.jpg";
 export { default as mainType } from "./mainType1.png";
-export { default as logo } from "./logo.png";
+export { default as logo } from "./Logo.png";
 export { default as cutout1 } from "./cutouts/cutout1.png";
 export { default as cutout2 } from "./cutouts/cutout2.png";
 export { default as cutout3 } from "./cutouts/cutout3.png";

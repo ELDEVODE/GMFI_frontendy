@@ -6,6 +6,9 @@ import Layout from "./components/Layout";
 
 // New import for GameLayout
 import GameLayout from "./components/GameLayout";
+import { SinglePlayer } from "./pages/Game/SinglePlayer";
+import { MultiplayerPoints } from "./pages/Game/MultiplayerPoints";
+import { MultiplayerStakes } from "./pages/Game/MultiplayerStakes";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
 
         {/* game Landing */}
         <Route path="/game" element={<GamePage />} />
+        <Route path="/game/single-player" element={<SinglePlayer />} />
+        <Route path="/game/multiplayer-points" element={<MultiplayerPoints />} />
+        <Route path="/game/multiplayer-stakes" element={<MultiplayerStakes />} />
 
         {/* Game with GameLayout */}
         {/* <Route element={<GameLayout />}>

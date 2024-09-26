@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 import { FaBars, FaTimes, FaPlay } from "react-icons/fa";
 import "./Navbar.css";
 

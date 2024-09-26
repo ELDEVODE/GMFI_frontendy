@@ -4,6 +4,7 @@ import {
   cutout2,
   cutout3,
   float1,
+  float2,
   HeroBg,
   mainType,
   TopBg,
@@ -134,28 +135,31 @@ function LandingPage() {
       {/* Floating elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div
-          className="absolute w-24 h-24 rounded-full border-2 border-cyan-400 opacity-50"
+          className="absolute w-24 h-24 rounded-full border bg-contain bg-no-repeat border-cyan-400/50 opacity-50"
           style={{
             top: "20%",
             left: "10%",
             transform: `translate(${scrollY * 0.2}px, ${scrollY * -0.1}px)`,
+            backgroundImage: `url(${float1})`,
           }}
         />
         <div
-          className={`absolute w-20 h-20 bg-[url('../assets/cutouts/float1.png')] opacity-50`}
+          className={`absolute w-20 h-20 bg-contain bg-no-repeat opacity-50`}
           style={{
             top: "60%",
             right: "15%",
             transform: `translate(${scrollY * -0.15}px, ${scrollY * 0.12}px)`,
+            backgroundImage: `url(${float1})`,
           }}
         />
 
         <div
-          className="absolute w-16 h-16 bg-cyan-400 opacity-40"
+          className="absolute w-32 h-32 bg-contain bg-no-repeat opacity-40"
           style={{
             top: "40%",
             left: "80%",
             transform: `translate(${scrollY * 0.1}px, ${scrollY * 0.1}px)`,
+            backgroundImage: `url(${float2})`,
           }}
         />
       </div>

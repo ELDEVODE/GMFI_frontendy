@@ -18,6 +18,8 @@ export { default as About1 } from "./About1.jpg";
 export { default as CommunityBg } from "./CommunityBg.jpg";
 export { default as CommunityBg1 } from "./CommunityBg1.jpg";
 export { default as bg } from "./bg.jpg";
-
+export { default as suiOnCampus } from "./suiO.jpeg";
+export { default as teamSpark } from "./teamspark.jpg";
+export { default as gmfi } from "./gmfi.jpg";
 export { default as stars } from "./stars.png";
 export { default as twinkling } from "./twinkling.png";

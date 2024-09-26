@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { suiOnCampus, teamSpark, gmfi } from "../assets";
 
 interface InfoModalProps {
   isOpen: boolean;
@@ -12,17 +13,17 @@ const InfoModal: React.FC<InfoModalProps> = ({ isOpen, onClose }) => {
     {
       title: "Team Spark",
       content: "Information about Team Spark goes here...",
-      image: "path_to_team_spark_image.jpg",
+      image: teamSpark,
     },
     {
       title: "Sui On Campus",
       content: "Information about Sui On Campus goes here...",
-      image: "path_to_sui_on_campus_image.jpg",
+      image: suiOnCampus,
     },
     {
       title: "GMFI",
       content: "Information about GMFI goes here...",
-      image: "path_to_gmfi_image.jpg",
+      image: gmfi,
     },
   ];
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import { FaBars, FaTimes, FaPlay } from "react-icons/fa";
@@ -6,7 +6,7 @@ import "./Navbar.css";
 import { ConnectButton } from "@mysten/dapp-kit";
 
 const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (

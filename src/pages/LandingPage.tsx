@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   cutout1,
-  cutout2,
   cutout3,
   float1,
   float2,

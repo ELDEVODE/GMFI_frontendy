@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useQuizStore } from "../store/store";
 import { EndGame } from "../pages/functions/EndGame";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const Quiz = () => {
@@ -13,7 +13,6 @@ export const Quiz = () => {
     lives,
     setAnswer,
     nextQuestion,
-    resetQuiz,
   } = useQuizStore();
   const [gameOver, setGameOver] = React.useState(false);
 

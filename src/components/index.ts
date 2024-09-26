@@ -1,5 +1,5 @@
 // export { default as RegisterPlayer } from "./RegisterPlayer";
-export { default as CreateGame } from "./CreateGame";
+
 export { default as CustomButton } from "./CustomButton";
 export { default as AboutSection } from "./AboutSection";
 export { default as Roadmap } from "./Roadmap";

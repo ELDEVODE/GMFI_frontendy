@@ -27,7 +27,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
         },
       }),
   });
-  const [gameId, setGame] = React.useState(() => {
+  const [gameId] = React.useState(() => {
     const hash = window.location.hash.slice(1);
     console.log(hash);
     return isValidSuiObjectId(hash) ? hash : null;

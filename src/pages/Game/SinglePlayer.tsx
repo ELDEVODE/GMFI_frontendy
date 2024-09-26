@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../../components/Navbar2";
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import { CreateGame } from "../functions/CreateGame";
@@ -9,17 +9,13 @@ import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 
-interface GameState {
-  data: any; // Replace 'any' with the actual type of 'data' if known
-}
-
 export function SinglePlayer() {
   const currentAccount = useCurrentAccount();
   const gameId = window.location.hash.slice(1);
   const [showInstructions, setShowInstructions] = useState(true);
 
   // Query the game object using SuiClientQuery
-  const { refetch, data, error, isFetching } = useSuiClientQuery("getObject", {
+  const { data } = useSuiClientQuery("getObject", {
     id: gameId || "",
     options: {
       showContent: true,

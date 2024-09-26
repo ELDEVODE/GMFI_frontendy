@@ -1,5 +1,4 @@
 import { ConnectButton } from "@mysten/dapp-kit";
-import React from "react";
 import logo from "../images/gmfi.jpg";
 
 export const Navbar = () => {

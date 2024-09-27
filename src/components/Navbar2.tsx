@@ -4,6 +4,7 @@ import logo from "../assets/Logo.png";
 import { FaBars, FaTimes, FaPlay } from "react-icons/fa";
 import "./Navbar.css";
 import { ConnectButton } from "@mysten/dapp-kit";
+import "@suiet/wallet-kit/style.css";
 
 const Navbar: React.FC = () => {
   const [isScrolled] = useState(false);
@@ -33,18 +34,10 @@ const Navbar: React.FC = () => {
         {/* Desktop menu */}
         <div className="hidden md:flex space-x-4 items-center">
           <div className="w-2" />
-          <div className="play-button-3d">
-            <div className="play-button-face front">
-              <ConnectButton className="btn btn-primary font-bold uppercase text-base-content hover:text-secondary" />
-            </div>
-            <div className="play-button-face back">
-              <ConnectButton className="btn btn-primary font-bold uppercase text-base-content hover:text-secondary" />
-            </div>
-            <div className="play-button-face top"></div>
-            <div className="play-button-face bottom"></div>
-            <div className="play-button-face left"></div>
-            <div className="play-button-face right"></div>
-          </div>
+
+          <ConnectButton className="bg-gradient-to-r from-[#00ffff] to-[#8a2be2] hover:from-[#00ffff] hover:to-[#53b4b4]  rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+            Connect Wallet
+          </ConnectButton>
         </div>
       </div>
 
@@ -56,14 +49,9 @@ const Navbar: React.FC = () => {
             : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
-        <Link
-          to="/game"
-          className="play-button-3d-mobile block py-2 px-4"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          <FaPlay className="inline-block mr-2 text-sm" />
-          Play Now
-        </Link>
+        <ConnectButton className="bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+          Connect Wallet
+        </ConnectButton>
       </div>
     </nav>
   );

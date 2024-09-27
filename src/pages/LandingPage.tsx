@@ -78,7 +78,7 @@ function LandingPage() {
               isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-50"
             } animate-glow`}
           />
-          <CustomButton to="#">Enter Game</CustomButton>
+          <CustomButton to="/game">Enter Game</CustomButton>
         </div>
 
         {/* cutout images */}

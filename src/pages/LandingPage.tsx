@@ -85,27 +85,16 @@ function LandingPage() {
         <img
           src={cutout1}
           alt=""
-          className="z-9 w-[35vw] absolute transition-all duration-1000 ease-out"
+          className="z-9 w-[35vw] hidden md:block absolute transition-all duration-1000 ease-out"
           style={{
             ...cutoutPositions.cutout1,
             transform: `translateY(${scrollY * 0.2}px)`,
           }}
         />
-        {/* <img
-          src={cutout2}
-          alt=""
-          className="z-9 w-[20vw] absolute transition-all duration-1000 ease-out"
-          style={{
-            ...cutoutPositions.cutout2,
-            transform: `translateY(${scrollY * 0.2}px) translateX(${
-              scrollY * 0.1
-            }px)`,
-          }}
-        /> */}
         <img
           src={cutout3}
           alt=""
-          className="z-9 w-[35vw] absolute transition-all duration-1000 ease-out"
+          className="z-9 w-[35vw] hidden md:block absolute transition-all duration-1000 ease-out"
           style={{
             ...cutoutPositions.cutout3,
             transform: `translateY(${scrollY * 0.2}px)`,
@@ -153,7 +142,7 @@ function LandingPage() {
         />
 
         <div
-          className="absolute w-32 h-32 bg-contain bg-no-repeat opacity-40"
+          className="absolute w-32 h-32 bg-contain bg-no-repeat opacity-30"
           style={{
             top: "40%",
             left: "80%",

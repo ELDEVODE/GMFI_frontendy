@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSignAndExecuteTransaction, useSuiClient } from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
 import { useNetworkVariable } from "../../networkConfig";
@@ -9,12 +9,10 @@ import { isValidSuiObjectId } from "@mysten/sui/utils";
 export const ResetGame = ({ onReset }: { onReset: () => void }) => {
   const counterPackageId = useNetworkVariable("counterPackageId");
   const playerStatsId = PLAYER_STATS_ID;
-  const [gameId] = React.useState(() => {
-    const hash = window.location.hash.slice(1);
-    console.log(hash);
-    return isValidSuiObjectId(hash) ? hash : null;
-  });
+
+  const [gameId, setGameId] = useState<string | null>(null);
   const suiClient = useSuiClient();
+
   const { mutate: signAndExecute } = useSignAndExecuteTransaction({
     execute: async ({ bytes, signature }) =>
       await suiClient.executeTransactionBlock({
@@ -26,6 +24,21 @@ export const ResetGame = ({ onReset }: { onReset: () => void }) => {
         },
       }),
   });
+
+  // Retrieve gameId from session storage or URL hash
+  useEffect(() => {
+    const storedGameId = sessionStorage.getItem("gameId");
+
+    if (storedGameId && isValidSuiObjectId(storedGameId)) {
+      setGameId(storedGameId);
+    } else {
+      const hashGameId = window.location.hash.slice(1);
+      if (isValidSuiObjectId(hashGameId)) {
+        setGameId(hashGameId);
+        sessionStorage.setItem("gameId", hashGameId); // Store in session storage
+      }
+    }
+  }, []);
 
   return (
     <motion.div
@@ -65,9 +78,14 @@ export const ResetGame = ({ onReset }: { onReset: () => void }) => {
   );
 
   function reset() {
+    if (!gameId) {
+      console.error("Game ID not found");
+      return;
+    }
+
     const tx = new Transaction();
     tx.moveCall({
-      arguments: [tx.object(gameId!), tx.object(playerStatsId!)],
+      arguments: [tx.object(gameId), tx.object(playerStatsId)],
       target: `${counterPackageId}::gmfi::reset_game`,
     });
 
@@ -79,6 +97,7 @@ export const ResetGame = ({ onReset }: { onReset: () => void }) => {
         onSuccess: () => {
           console.log("Game reset successfully");
           onReset();
+          sessionStorage.removeItem("gameId"); // Optionally clear gameId after reset
         },
         onError: (error) => {
           console.error("Error resetting game:", error);

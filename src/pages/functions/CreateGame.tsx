@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSignAndExecuteTransaction, useSuiClient } from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
 import { useNetworkVariable } from "../../networkConfig";
@@ -30,11 +30,18 @@ export const CreateGame = ({
       }),
   });
 
-  const [gameId, setGameId] = React.useState(() => {
-    const hash = window.location.hash.slice(1);
-    console.log(hash);
-    return isValidSuiObjectId(hash) ? hash : null;
+  const [gameId, setGameId] = useState<string | null>(() => {
+    // Retrieve gameId from sessionStorage
+    const storedGameId = sessionStorage.getItem("gameId");
+    return isValidSuiObjectId(storedGameId || "") ? storedGameId : null;
   });
+
+  useEffect(() => {
+    if (gameId) {
+      // Refetch data for the gameId stored in session
+      refetch();
+    }
+  }, [gameId]);
 
   const { refetch } = useSuiClientQuery("getObject", {
     id: gameId || "",
@@ -92,7 +99,6 @@ export const CreateGame = ({
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-6 rounded-lg shadow-lg w-full">
-            {/* <h3 className="text-xl font-bold mb-4">Reset Game</h3> */}
             <ResetGame onReset={() => setIsModalOpen(false)} />{" "}
             {/* Pass a close handler to the modal */}
             <button
@@ -125,6 +131,9 @@ export const CreateGame = ({
             const objectId = createdObject.reference.objectId;
             onCreated(objectId);
             setGameId(objectId);
+
+            // Store the gameId in sessionStorage instead of the hash
+            sessionStorage.setItem("gameId", objectId);
             resetQuiz();
           }
           console.log(result);

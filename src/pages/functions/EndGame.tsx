@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSignAndExecuteTransaction, useSuiClient } from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
 import { useNetworkVariable } from "../../networkConfig";
@@ -26,11 +26,19 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
         },
       }),
   });
-  const [gameId] = React.useState(() => {
-    const hash = window.location.hash.slice(1);
-    console.log(hash);
-    return isValidSuiObjectId(hash) ? hash : null;
+
+  // Get the gameId from session storage or initialize as null
+  const [gameId, setGameId] = useState<string | null>(() => {
+    const storedGameId = sessionStorage.getItem("gameId");
+    return isValidSuiObjectId(storedGameId) ? storedGameId : null;
   });
+
+  useEffect(() => {
+    // Save the gameId to session storage whenever it's updated
+    if (gameId) {
+      sessionStorage.setItem("gameId", gameId);
+    }
+  }, [gameId]);
 
   const { refetch } = useSuiClientQuery("getObject", {
     id: gameId || "",
@@ -67,7 +75,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
         </motion.p>
         <motion.button
           className="px-6 py-3 bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-gray-800 font-bold text-lg"
-          onClick={() => End()}
+          onClick={End}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -78,8 +86,12 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
   );
 
   function End() {
-    const tx = new Transaction();
+    if (!gameId) {
+      console.error("No game ID found to end the session.");
+      return;
+    }
 
+    const tx = new Transaction();
     tx.moveCall({
       arguments: [
         tx.object(gameId!),
@@ -112,6 +124,9 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
             resetQuiz();
           }
           refetch();
+        },
+        onError: (error) => {
+          console.error("Error ending game session:", error);
         },
       }
     );

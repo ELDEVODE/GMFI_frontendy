@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   cutout1,
-  cutout2,
   cutout3,
   float1,
   float2,
@@ -79,7 +78,7 @@ function LandingPage() {
               isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-50"
             } animate-glow`}
           />
-          <CustomButton to="/game">Enter Game</CustomButton>
+          <CustomButton to="#">Enter Game</CustomButton>
         </div>
 
         {/* cutout images */}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { bg } from "../assets";
 import InfoModal from "./InfoModal"; // We'll create this component next
 

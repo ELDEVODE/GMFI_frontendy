@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar2";
 import { useWallet } from "@suiet/wallet-kit";
 import { CreateGame } from "../functions/CreateGame";
@@ -12,11 +12,15 @@ import { ResetGame } from "../functions/ResetGame";
 
 export function SinglePlayer() {
   const currentAccount = useCurrentAccount();
-  const gameId = window.location.hash.slice(1);
+
+  // Retrieve the gameId from sessionStorage if it exists
+  const storedGameId = sessionStorage.getItem("gameId");
+  const gameId = storedGameId || "";
+
   const [showInstructions, setShowInstructions] = useState(true);
 
   const { data, isPending } = useSuiClientQuery("getObject", {
-    id: gameId || "",
+    id: gameId,
     options: {
       showContent: true,
       showOwner: true,
@@ -132,10 +136,10 @@ export function SinglePlayer() {
                   <Quiz />
                 ) : (
                   // only create game if lives is more than 0
-
                   <CreateGame
                     onCreated={(id) => {
-                      window.location.hash = id;
+                      // Store the gameId in sessionStorage
+                      sessionStorage.setItem("gameId", id);
                     }}
                   />
                 )

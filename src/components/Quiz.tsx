@@ -27,7 +27,7 @@ export const Quiz = () => {
     if (currentQuestion.answer === answer) {
       toast("Correct answer!", {
         position: "bottom-center",
-        autoClose: 2000,
+        autoClose: 500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -39,7 +39,7 @@ export const Quiz = () => {
     } else {
       toast.error("Wrong answer!", {
         position: "bottom-center",
-        autoClose: 2000,
+        autoClose: 500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -56,16 +56,15 @@ export const Quiz = () => {
   if (gameOver) {
     return (
       <motion.div
-        className="glass p-8 bg-secondary text-primary rounded-[30px]"
+        className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
         initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-2xl font-bold mb-4">Game Over</h1>
-        <p className="mb-4">Your score: {score}</p>
-        {/* <button onClick={resetQuiz} className="btn btn-primary mb-4">
-          Restart
-        </button> */}
+        <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
+          Game Over
+        </h1>
+        <p className="text-2xl text-[#d4ffff] mb-6">Your score: {score}</p>
         <EndGame
           onCreated={(id) => {
             window.location.hash = id;
@@ -79,38 +78,50 @@ export const Quiz = () => {
 
   return (
     <motion.div
-      className="glass p-8 bg-secondary text-primary rounded-[30px]"
+      className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.h2
-        className="p-4 bg-primary-content text-primary rounded-3xl capitalize font-bold mb-4"
+        className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent"
         initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
         {currentQuestion?.question}
       </motion.h2>
-      <div className="flex flex-col justify-start items-start mt-4">
+      <div className="flex flex-col space-y-4">
         {currentQuestion?.options.map((option) => (
           <motion.button
-            className="btn btn-secondary my-2 w-full rounded-xl"
+            className="px-6 py-3 bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-gray-800 font-bold text-lg"
             key={option}
             onClick={() => handleAnswer(option)}
             initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.95 }}
           >
             {option}
           </motion.button>
         ))}
       </div>
-      <div className="mt-4">
-        <p className="font-bold">Score: {score}</p>
+      <div className="mt-6">
+        <p className="text-xl text-[#d4ffff] font-bold">
+          Score:{" "}
+          <span className="bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
+            {score}
+          </span>
+        </p>
       </div>
       <div className="mt-4">
-        <p className="font-bold">Tries: {lives}</p>
+        <p className="text-xl text-[#d4ffff] font-bold">
+          Lives:{" "}
+          <span className="bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
+            {lives}
+          </span>
+        </p>
       </div>
     </motion.div>
   );

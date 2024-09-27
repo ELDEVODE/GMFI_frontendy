@@ -98,7 +98,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
           const objectId = result.effects?.created?.[0]?.reference?.objectId;
           toast.success("You earned " + points + " points!", {
             position: "bottom-center",
-            autoClose: 500,
+            autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

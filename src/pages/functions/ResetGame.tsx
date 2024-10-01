@@ -2,19 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useSignAndExecuteTransaction, useSuiClient } from "@mysten/dapp-kit";
 import { Transaction } from "@mysten/sui/transactions";
 import { useNetworkVariable } from "../../networkConfig";
-import { isValidSuiObjectId } from "@mysten/sui/utils";
-import { useSuiClientQuery } from "@mysten/dapp-kit";
-import { useQuizStore } from "../../store/store";
 import { PLAYER_STATS_ID } from "../../constants";
 import { motion } from "framer-motion"; // Import Framer Motion for animations
-import { toast, Bounce } from "react-toastify";
+import { isValidSuiObjectId } from "@mysten/sui/utils";
 
-export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
-  const { score, resetQuiz } = useQuizStore();
-  const points = score * 2;
+export const ResetGame = ({ onReset }: { onReset: () => void }) => {
   const counterPackageId = useNetworkVariable("counterPackageId");
   const playerStatsId = PLAYER_STATS_ID;
+
+  const [gameId, setGameId] = useState<string | null>(null);
   const suiClient = useSuiClient();
+
   const { mutate: signAndExecute } = useSignAndExecuteTransaction({
     execute: async ({ bytes, signature }) =>
       await suiClient.executeTransactionBlock({
@@ -27,26 +25,20 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
       }),
   });
 
-  // Get the gameId from session storage or initialize as null
-  const [gameId, setGameId] = useState<string | null>(() => {
-    const storedGameId = sessionStorage.getItem("gameId");
-    return isValidSuiObjectId(storedGameId) ? storedGameId : null;
-  });
-
+  // Retrieve gameId from session storage or URL hash
   useEffect(() => {
-    // Save the gameId to session storage whenever it's updated
-    if (gameId) {
-      sessionStorage.setItem("gameId", gameId);
-    }
-  }, [gameId]);
+    const storedGameId = sessionStorage.getItem("gameId");
 
-  const { refetch } = useSuiClientQuery("getObject", {
-    id: gameId || "",
-    options: {
-      showContent: true,
-      showOwner: true,
-    },
-  });
+    if (storedGameId && isValidSuiObjectId(storedGameId)) {
+      setGameId(storedGameId);
+    } else {
+      const hashGameId = window.location.hash.slice(1);
+      if (isValidSuiObjectId(hashGameId)) {
+        setGameId(hashGameId);
+        sessionStorage.setItem("gameId", hashGameId); // Store in session storage
+      }
+    }
+  }, []);
 
   return (
     <motion.div
@@ -62,7 +54,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          End of Game
+          Reset Game
         </motion.h2>
         <motion.p
           className="text-xl mb-6 text-[#d4ffff]"
@@ -70,35 +62,31 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          You earned <strong className="text-[#00ffff]">{points}</strong>{" "}
-          points! Ready to submit and see your final score?
+          You are out of lives <br />
+          Click below to reset the current game and start over.
         </motion.p>
         <motion.button
           className="px-6 py-3 bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-gray-800 font-bold text-lg"
-          onClick={End}
+          onClick={reset}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          End Game
+          Reset Lives
         </motion.button>
       </div>
     </motion.div>
   );
 
-  function End() {
+  function reset() {
     if (!gameId) {
-      console.error("No game ID found to end the session.");
+      console.error("Game ID not found");
       return;
     }
 
     const tx = new Transaction();
     tx.moveCall({
-      arguments: [
-        tx.object(gameId!),
-        tx.object(playerStatsId!),
-        tx.pure.u64(points),
-      ],
-      target: `${counterPackageId}::gmfi::end_session`,
+      arguments: [tx.object(gameId), tx.object(playerStatsId)],
+      target: `${counterPackageId}::gmfi::reset_game`,
     });
 
     signAndExecute(
@@ -106,27 +94,13 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
         transaction: tx,
       },
       {
-        onSuccess: (result) => {
-          const objectId = result.effects?.created?.[0]?.reference?.objectId;
-          toast.success("You earned " + points + " points!", {
-            position: "bottom-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-          });
-          if (objectId) {
-            onCreated(objectId);
-            resetQuiz();
-          }
-          refetch();
+        onSuccess: () => {
+          console.log("Game reset successfully");
+          onReset();
+          sessionStorage.removeItem("gameId"); // Optionally clear gameId after reset
         },
         onError: (error) => {
-          console.error("Error ending game session:", error);
+          console.error("Error resetting game:", error);
         },
       }
     );

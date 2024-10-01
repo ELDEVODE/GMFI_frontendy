@@ -1,5 +1,6 @@
 import { ConnectButton } from "@mysten/dapp-kit";
 import logo from "../images/gmfi.jpg";
+import "@suiet/wallet-kit/style.css";
 
 export const Navbar = () => {
   return (

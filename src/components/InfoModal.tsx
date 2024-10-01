@@ -40,19 +40,19 @@ const InfoModal: React.FC<InfoModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-800 p-8 rounded-lg max-w-3xl w-full mx-4 relative overflow-hidden">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-300 hover:text-white"
-        >
-          ✕
-        </button>
         <div className="arcade-frame border-4 border-neon-blue p-4 rounded-lg">
-          <div className="carousel-container">
+          <div className="carousel-container relative">
             <img
               src={slides[currentSlide].image}
               alt={slides[currentSlide].title}
               className="w-full h-64 object-cover rounded-lg mb-4"
             />
+            <button
+              onClick={onClose}
+              className="absolute top-2 right-2 bg-black bg-opacity-50 text-white hover:bg-opacity-75 rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+            >
+              ✕
+            </button>
             <h3 className="text-2xl font-bold text-neon-green mb-2">
               {slides[currentSlide].title}
             </h3>

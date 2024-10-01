@@ -1,17 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./CustomButton.css";
 
 interface CustomButtonProps {
-  to: string;
+  onClick: () => void;
   children: React.ReactNode;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ to, children }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ onClick, children }) => {
   return (
-    <Link to={to} className="custom-button">
+    <button
+      className="custom-button"
+      onClick={onClick}
+      data-text={children as string}
+    >
       {children}
-    </Link>
+    </button>
   );
 };
 

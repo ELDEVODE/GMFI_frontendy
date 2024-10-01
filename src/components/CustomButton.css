@@ -51,21 +51,42 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.2);
   pointer-events: none;
-  animation: flash 4s infinite;
+  animation: lightning 5s infinite;
 }
 
 @keyframes flash {
-  0% {
-    opacity: 0;
-  }
-  5% {
-    opacity: 0.5;
-  }
-  10% {
-    opacity: 0;
-  }
+  0%,
   100% {
     opacity: 0;
+  }
+  25%,
+  75% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes lightning {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  92% {
+    opacity: 0;
+  }
+  94% {
+    opacity: 0.6;
+  }
+  96% {
+    opacity: 0.2;
+  }
+  98% {
+    opacity: 0.9;
+  }
+  99% {
+    opacity: 0.4;
   }
 }
 

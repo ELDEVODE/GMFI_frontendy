@@ -96,7 +96,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
       arguments: [
         tx.object(gameId!),
         tx.object(playerStatsId!),
-        tx.pure.u64(points),
+        tx.pure.u64(10),
       ],
       target: `${counterPackageId}::gmfi::end_session`,
     });

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useQuizStore } from "../store/store";
 import { EndGame } from "../pages/functions/EndGame";
@@ -13,18 +13,30 @@ export const Quiz = () => {
     lives,
     setAnswer,
     nextQuestion,
+    loading,
+    error,
   } = useQuizStore();
-  const [gameOver, setGameOver] = React.useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    if (lives === 0 || currentQuestionIndex >= questions.length) {
+    const storedQuestions = sessionStorage.getItem("questions");
+    if (storedQuestions) {
+      useQuizStore.setState({ questions: JSON.parse(storedQuestions) });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      !loading &&
+      (lives === 0 || (questions && currentQuestionIndex >= questions.length))
+    ) {
       setGameOver(true);
     }
-  }, [lives, currentQuestionIndex, questions.length]);
+  }, [lives, currentQuestionIndex, questions, loading]);
 
   const handleAnswer = (answer: string) => {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (currentQuestion.answer === answer) {
+    const currentQuestion = questions?.[currentQuestionIndex];
+    if (currentQuestion?.answer === answer) {
       toast("Correct answer!", {
         position: "bottom-center",
         autoClose: 500,
@@ -53,7 +65,19 @@ export const Quiz = () => {
     nextQuestion();
   };
 
-  if (gameOver) {
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="error-message">
+        Error loading questions, please try again.
+      </div>
+    );
+  }
+
+  if (gameOver && !questions && questions?.length === 0) {
     return (
       <motion.div
         className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
@@ -74,7 +98,7 @@ export const Quiz = () => {
     );
   }
 
-  const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = questions?.[currentQuestionIndex];
 
   return (
     <motion.div

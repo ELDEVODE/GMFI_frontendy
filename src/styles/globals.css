@@ -1,0 +1,45 @@
+@keyframes tilt {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(0.5deg);
+  }
+  75% {
+    transform: rotate(-0.5deg);
+  }
+}
+
+.animate-tilt {
+  animation: tilt 10s infinite linear;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}

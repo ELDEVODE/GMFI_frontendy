@@ -102,3 +102,75 @@
       0 0 50px #00ffff, 0 0 60px #00ffff;
   }
 }
+
+body {
+  background-color: #111;
+  color: #fff;
+  font-family: "Audiowide", cursive; /* Changed to a more techno font */
+}
+
+/* Add these new styles */
+.techno-text {
+  font-family: "Audiowide", cursive;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px #00ffff;
+  text-stroke: 1px #00ffff;
+}
+
+.text-glow {
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  animation: text-flicker 1.5s infinite alternate;
+}
+
+@keyframes text-flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 4px #fff, 0 0 11px #fff, 0 0 19px #fff, 0 0 40px #00ffff,
+      0 0 80px #00ffff, 0 0 90px #00ffff, 0 0 100px #00ffff, 0 0 150px #00ffff;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
+}
+
+/* Add a new animation for the life icons */
+@keyframes life-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff;
+  }
+  50% {
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff,
+      0 0 40px #00ffff;
+  }
+}
+
+.life-icon {
+  animation: life-pulse 2s infinite;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+
+.cyberpunk-text {
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
+}
+
+.text-stroke-sm {
+  -webkit-text-stroke: 1px rgba(0, 255, 255, 0.5);
+}
+
+.text-glow-sm {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+}

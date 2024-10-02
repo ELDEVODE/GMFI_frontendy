@@ -117,7 +117,7 @@ const LivesDisplay: React.FC<{ lives: number }> = ({ lives }) => {
       >
         Lives:
       </motion.span>
-      <div className="flex space-x-2">
+      <div className="flex space-x-2 scale-x-[-1]">
         {[...Array(3)].map((_, index) => (
           <LifeIcon key={index} active={index < lives} />
         ))}

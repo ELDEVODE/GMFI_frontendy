@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { community1, community2, CommunityBg, flybot } from "../assets";
-import { FaTelegramPlane, FaTwitter } from "react-icons/fa";
+import { FaEnvelope, FaTwitter } from "react-icons/fa";
 
 interface CommunitySectionProps {
   scrollY: number;
@@ -48,15 +48,13 @@ const CommunitySection: React.FC<CommunitySectionProps> = ({
         </p>
         <div className="flex justify-center mt-10">
           <a
-            href="https://telegram.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-4 transition-all duration-300 ease-in-out hover:scale-125 hover:text-blue-400"
+            href="mailto:teamspark.sui@gmail.com"
+            className="mx-4 transition-all duration-300 ease-in-out hover:scale-125 hover:text-red-400"
           >
-            <FaTelegramPlane className="text-white text-2xl" />
+            <FaEnvelope className="text-white text-2xl" />
           </a>
           <a
-            href="https://twitter.com/"
+            href="https://x.com/teamsparksui?t=ycf5JwKwa_3L5kUfhCFSRg&s=09"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-4 transition-all duration-300 ease-in-out hover:scale-125 hover:text-blue-400"

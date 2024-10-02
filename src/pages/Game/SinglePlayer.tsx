@@ -142,13 +142,13 @@ export function SinglePlayer() {
                     <ul className="list-disc list-inside space-y-1 mb-4">
                       <li>Tap on the answer options to upload your choice.</li>
                       <li>
-                        You have a limited amount of cyber-life. Wrong answers
-                        will drain your energy.
+                        You have a limited amount of life. Wrong answers will
+                        drain your energy.
                       </li>
                       <li>Your credit score will rise with correct answers.</li>
                       <li>
-                        When your cyber-life runs out or you complete all
-                        missions, the quest will end.
+                        When your life runs out or you complete all missions,
+                        the quest will end.
                       </li>
                     </ul>
                     <p>

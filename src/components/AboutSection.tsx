@@ -18,12 +18,16 @@ const AboutSection = () => {
           About
         </h2>
         <p className="text-lg md:text-xl text-center max-w-3xl mx-auto text-gray-300">
-          GMFI brings you cutting-edge blockchain technology combined with
-          immersive gameplay. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Natus veritatis, dolore adipisci consequuntur repellendus ipsum
-          minima repellat, soluta aperiam mollitia aliquam esse! Ad cum facere
-          debitis magni. Dicta enim ex, nam nisi omnis quas accusamus sed
-          mollitia. Blanditiis, pariatur inventore!
+          At GMFi, we are redefining digital engagement by blending gamified
+          learning, entertainment, and tangible ownership on the SUI blockchain.
+          Our platform leverages an arcade-style quiz format, inspired by "Who
+          Wants to Be a Millionaire," to onboard and educate users—from
+          intuitive childhood gamers to tech-savvy Gen Z and Millennials—on Web3
+          Basics through suspense interactive approach. By combining engaging
+          gameplay with real-time incentives, such as earning SUI tokens, Beyond
+          gaming, GMFi introduces Real-World Asset (RWA) co-ownership
+          opportunities, transforming casual players into Gm's ,co-
+          owners and investors.
         </p>
         <div className="text-center mt-12">
           <button

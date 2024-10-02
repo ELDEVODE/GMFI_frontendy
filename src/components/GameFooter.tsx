@@ -1,20 +1,12 @@
 import React from "react";
-import "./GameFooter.css"; // We'll create this file for the animations
+import { flybot1 } from "../assets";
+import "./GameFooter.css";
 
 const GameFooter: React.FC = () => {
   return (
-    <div className="game-footer">
-      <div className="content">whatever is here</div>
-      <div className="electricity-container">
-        {[...Array(10)].map((_, index) => (
-          <div
-            key={index}
-            className="electricity-bolt"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          />
-        ))}
-      </div>
-    </div>
+    <footer className="game-footer relative">
+      <img src={flybot1} alt="Cutout 8" className="flybot" />
+    </footer>
   );
 };
 

@@ -132,7 +132,7 @@ export function SinglePlayer() {
                   </h2>
                   <div className="mb-4 text-base sm:text-lg text-[#d4ffff]">
                     <p className="mb-2">
-                      Get ready to hack your way through this cyberpunk quiz
+                      Get ready to hack your way through this cyber quiz
                       adventure! Answer questions to earn credits and keep your
                       cyber-life from crashing!
                     </p>

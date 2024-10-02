@@ -165,7 +165,7 @@ const MusicToggle: React.FC<{ isPlaying: boolean; onToggle: () => void }> = ({
 }) => {
   return (
     <motion.div
-      className="absolute bottom-[-40px] right-4 z-20"
+      className="absolute bottom-[-4rem] right-4 z-20"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
     >

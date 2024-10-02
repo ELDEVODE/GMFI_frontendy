@@ -13,6 +13,7 @@ import { AboutSection, CommunitySection, Roadmap } from "../components";
 import "../styles/roadmap.css";
 import Features from "../components/Features";
 import { features } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
   const [scrollY, setScrollY] = useState(0);
@@ -22,6 +23,8 @@ function LandingPage() {
     cutout2: { right: "40%", bottom: "-10%" },
     cutout3: { left: "-10%", bottom: "-10%" },
   });
+
+  const navigate = useNavigate();
 
   const communitySectionRef = useRef<HTMLDivElement>(null);
 
@@ -78,7 +81,9 @@ function LandingPage() {
               isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-50"
             } animate-glow`}
           />
-          <CustomButton to="/game">Enter Game</CustomButton>
+          <CustomButton onClick={() => navigate("/game")}>
+            Enter Game
+          </CustomButton>
         </div>
 
         {/* cutout images */}

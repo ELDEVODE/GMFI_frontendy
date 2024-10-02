@@ -1,10 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar2";
 import { motion } from "framer-motion";
-import { Star, Trophy, Users } from "lucide-react";
+import { bg2, cutout2, cutout8, flybot1, mainType } from "../../assets";
+import SciFiMenu from "../../components/SciFiMenu";
+import {
+  Play,
+  Settings,
+  BarChart2,
+  Trophy,
+  User,
+  Award,
+  ShoppingCart,
+} from "lucide-react";
+import PlayModal from "../../modals/PlayModal";
+import OptionsModal from "../../modals/OptionsModal";
+import StatsModal from "../../modals/StatsModal";
+import LeaderboardModal from "../../modals/LeaderboardModal";
+import ProfileModal from "../../modals/ProfileModal";
+import AchievementsModal from "../../modals/AchievementsModal";
+import ShopModal from "../../modals/ShopModal";
+import MusicPlayer from "../../components/MusicPlayer";
 
 export default function GamePage() {
+  const navigate = useNavigate();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [cutoutPositions, setCutoutPositions] = useState({
+    cutout1: { right: "-10%", bottom: "-10%" },
+    cutout2: { left: "-10%", top: "-10%" },
+    cutout3: { left: "-10%", bottom: "-10%" },
+  });
+
   const containerVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: {
@@ -14,67 +40,165 @@ export default function GamePage() {
     },
   };
 
+  useEffect(() => {
+    // Set isLoaded to true after a short delay to trigger the animation
+    const timer = setTimeout(() => setIsLoaded(true), 500);
+
+    // Animate cutout images to their final positions
+    setTimeout(() => {
+      setCutoutPositions({
+        cutout1: { right: "0%", bottom: "0%" },
+        cutout2: { left: "10%", top: "10%" },
+        cutout3: { left: "0%", bottom: "0%" },
+      });
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+
+  const closeModal = () => setActiveModal(null);
+
+  const menuOptions = [
+    {
+      label: "Play",
+      onClick: () => setActiveModal("play"),
+      icon: <Play size={18} />,
+    },
+    {
+      label: "Options",
+      onClick: () => setActiveModal("options"),
+      icon: <Settings size={18} />,
+    },
+    {
+      label: "Stats",
+      onClick: () => setActiveModal("stats"),
+      icon: <BarChart2 size={18} />,
+    },
+    {
+      label: "Leaderboard",
+      onClick: () => setActiveModal("leaderboard"),
+      icon: <Trophy size={18} />,
+    },
+    {
+      label: "Profile",
+      onClick: () => setActiveModal("profile"),
+      icon: <User size={18} />,
+    },
+    {
+      label: "Achievements",
+      onClick: () => setActiveModal("achievements"),
+      icon: <Award size={18} />,
+    },
+    {
+      label: "Shop",
+      onClick: () => setActiveModal("shop"),
+      icon: <ShoppingCart size={18} />,
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
       <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-12 flex flex-col justify-center">
-        <motion.div
-          className="text-center"
-          initial="hidden"
-          whileInView="visible"
-          variants={containerVariants}
-        >
-          <motion.div className="max-w-3xl mx-auto">
-            <motion.h1
-              className="text-6xl font-bold mb-8 shadow-text bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              style={{
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                WebkitTextStroke: "1px black",
-              }}
-            >
-              Epic Trivia Adventure
-            </motion.h1>
-            <motion.p
-              className="text-2xl mb-16 shadow-text bg-gradient-to-b from-[#d4ffff] to-[#8a2be2] bg-clip-text text-transparent"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-            >
-              Choose Your Battle Mode!
-            </motion.p>
-            <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-              <GameModeButton
-                to="/game/single-player"
-                icon={<Star size={24} />}
-                text="Single Player"
-              />
-              <GameModeButton
-                to="/multiplayer-points"
-                icon={<Trophy size={24} />}
-                text="Multiplayer Points"
-              />
-              <GameModeButton
-                to="/multiplayer-stakes"
-                icon={<Users size={24} />}
-                text="Multiplayer Stakes"
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-      <motion.div
-        className="text-center py-6"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
+      <div
+        className="h-full inset-0 absolute"
+        style={{
+          backgroundImage: `url(${bg2})`,
+          transform: `translateY(${scrollY * 0.5}px)`,
+          boxShadow: `0 0 20px 2px rgba(0, 255, 255, 0.2), 0 0 70px 10px rgba(0, 255, 255, 0.1)`,
+        }}
+      />
+
+      <div
+        id="hero"
+        className={`relative h-screen overflow-hidden bg-gray-900 bg-opacity-85`}
       >
-        <p className="text-xl font-bold shadow-text bg-gradient-to-b from-[#00ffff] to-[#8a2be2] bg-clip-text text-transparent">
-          Powered by Team Spark ✨
-        </p>
+        <div
+          className="absolute inset-[10%] blur-[1.1px] bg-cover bg-top bg-no-repeat rounded-2xl transition-shadow duration-[1000ms] ease-in-out"
+          style={{
+            backgroundImage: `url(${bg2})`,
+            transform: `translateY(${scrollY * 0.5}px)`,
+            boxShadow: `0 0 20px 2px rgba(0, 255, 255, 0.2), 0 0 70px 10px rgba(0, 255, 255, 0.1)`,
+          }}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative h-full z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <motion.img
+            src={mainType}
+            alt=""
+            className={`mb-8 w-64 transition-all duration-1000 ease-out ${
+              isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-50"
+            } animate-glow`}
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+          />
+
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+          >
+            <SciFiMenu options={menuOptions} maxVisibleOptions={3} />
+          </motion.div>
+        </div>
+
+        {/* cutout images */}
+        <img
+          src={cutout8}
+          alt=""
+          className="z-9 w-[22vw] hidden md:block absolute transition-all duration-1000 ease-out"
+          style={{
+            ...cutoutPositions.cutout1,
+            transform: `translateY(${scrollY * 0.2}px)`,
+          }}
+        />
+        {/* <img
+          src={flybot1}
+          alt=""
+          className="z-9 w-[18vw] blur-[.4px] hidden md:block absolute transition-all duration-1000 ease-out"
+          style={{
+            ...cutoutPositions.cutout2,
+            transform: `translateY(${scrollY * 0.2}px)`,
+          }}
+        /> */}
+        <img
+          src={cutout2}
+          alt=""
+          className="z-9 w-[25vw] hidden md:block absolute transition-all duration-1000 ease-out"
+          style={{
+            ...cutoutPositions.cutout3,
+            transform: `translateY(${scrollY * 0.2}px)`,
+          }}
+        />
+      </div>
+
+      <motion.div
+        className="text-center py-4 bg-transparent w-full flex absolute bottom-0"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+      >
+        <p className="font-bold text-center w-full">Powered by Team Spark ✨</p>
       </motion.div>
+
+      <PlayModal isOpen={activeModal === "play"} onClose={closeModal} />
+      <OptionsModal isOpen={activeModal === "options"} onClose={closeModal} />
+      <StatsModal isOpen={activeModal === "stats"} onClose={closeModal} />
+      <LeaderboardModal
+        isOpen={activeModal === "leaderboard"}
+        onClose={closeModal}
+      />
+      <ProfileModal isOpen={activeModal === "profile"} onClose={closeModal} />
+      <AchievementsModal
+        isOpen={activeModal === "achievements"}
+        onClose={closeModal}
+      />
+      <ShopModal isOpen={activeModal === "shop"} onClose={closeModal} />
+      <MusicPlayer />
     </div>
   );
 }
@@ -83,26 +207,3 @@ const buttonVariants = {
   hover: { scale: 1.1, transition: { duration: 0.3 } },
   tap: { scale: 0.9 },
 };
-
-const GameModeButton = ({ to, icon, text }) => (
-  <Link to={to} className="w-full md:w-auto">
-    <motion.button
-      className="w-full py-4 px-6 bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 text-gray-800 font-bold text-lg"
-      variants={buttonVariants}
-      whileHover="hover"
-      whileTap="tap"
-    >
-      {icon}
-      <span>{text}</span>
-    </motion.button>
-  </Link>
-);
-
-// Add this to your global CSS or in a style tag in your HTML
-`
-<style>
-  .shadow-text {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-</style>
-`;

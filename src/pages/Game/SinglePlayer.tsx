@@ -9,15 +9,52 @@ import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { ResetGame } from "../functions/ResetGame";
+import {
+  arena1,
+  arena2,
+  arena3,
+  arena4,
+  arena5,
+  arena6,
+  arena7,
+  arena8,
+  createBg,
+} from "../../assets";
+import GameStatBar from "../../components/GameStatBar";
+import GameFooter from "../../components/GameFooter";
+import MusicPlayer from "../../components/MusicPlayer";
+import CategoriesModal from "../../modals/CategoriesModal";
 
 export function SinglePlayer() {
   const currentAccount = useCurrentAccount();
+
+  const [arena, setArena] = useState(createBg);
+
+  const arenas = [
+    arena1,
+    arena2,
+    arena3,
+    arena4,
+    arena5,
+    arena6,
+    arena7,
+    arena8,
+    createBg,
+  ];
+
+  const [randomArena, setRandomArena] = useState("");
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * arenas.length);
+    setRandomArena(arenas[randomIndex]);
+  }, []);
 
   // Retrieve the gameId from sessionStorage if it exists
   const storedGameId = sessionStorage.getItem("gameId");
   const gameId = storedGameId || "";
 
   const [showInstructions, setShowInstructions] = useState(true);
+  const [showCategoriesModal, setShowCategoriesModal] = useState(false);
 
   const { data, isPending } = useSuiClientQuery("getObject", {
     id: gameId,
@@ -44,7 +81,14 @@ export function SinglePlayer() {
   // if (error) return <div>Error loading game data</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#2a0e61] to-[#1d0a3a] text-white ">
+    <div
+      className="h-screen mx-auto text-white overflow-hidden relative"
+      style={{
+        backgroundImage: `url(${randomArena})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -58,75 +102,82 @@ export function SinglePlayer() {
         theme="dark"
         transition={Bounce}
       />
-      <Navbar />
+      {/* <Navbar /> */}
       <motion.div
-        className="container mx-auto px-4 py-8 "
+        className={`${
+          showInstructions ? "backdrop-filter backdrop-blur-[5px] z-10" : ""
+        } h-screen mx-auto flex flex-col w-full bg-black/50 backdrop-blur-[3px] relative`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex justify-between p-4 mt-14 bg-gradient-to-r from-[#4a1c82] to-[#2c1053] rounded-xl shadow-lg mb-8">
-          <div className="text-xl">
-            <strong className="bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
-              Points: {points}
-            </strong>
-          </div>
-          <div className="text-xl">
-            <strong className="bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
-              Lives: {lives}
-            </strong>
-          </div>
-        </div>
+        <GameStatBar points={points} lives={lives} />
         <motion.div
-          className="p-4"
+          className="flex-grow overflow-auto flex items-center justify-center p-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           {showInstructions ? (
             <motion.div
-              className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl"
+              className="p-4 sm:p-6 h-screen w-screen flex items-center justify-center absolute top-0 left-0"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
-                Welcome to the Epic Trivia Adventure!
-              </h2>
-              <div className="mb-6 text-xl text-[#d4ffff]">
-                Test your knowledge in this thrilling quiz game. Answer
-                questions to earn points and keep your lives from reaching zero!
-                <br />
-                <br />
-                <div className="font-bold mb-3 text-2xl text-[#00ffff]">
-                  Instructions:
+              {!showCategoriesModal && (
+                <div className="rounded-2xl max-h-[70vh] overflow-auto shadow-lg shadow-[#00ffff]/20 bg-black/80 w-full sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/2 p-6 sm:p-8 md:p-12">
+                  <h2 className="text-xl sm:text-2xl text-center font-bold mb-4 bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
+                    Welcome to GMFI Cyber Quest!
+                  </h2>
+                  <div className="mb-4 text-base sm:text-lg text-[#d4ffff]">
+                    <p className="mb-2">
+                      Get ready to hack your way through this cyberpunk quiz
+                      adventure! Answer questions to earn credits and keep your
+                      cyber-life from crashing!
+                    </p>
+                    <div className="font-bold mb-2 text-lg sm:text-xl text-[#00ffff]">
+                      Mission Briefing:
+                    </div>
+                    <ul className="list-disc list-inside space-y-1 mb-4">
+                      <li>Tap on the answer options to upload your choice.</li>
+                      <li>
+                        You have a limited amount of cyber-life. Wrong answers
+                        will drain your energy.
+                      </li>
+                      <li>Your credit score will rise with correct answers.</li>
+                      <li>
+                        When your cyber-life runs out or you complete all
+                        missions, the quest will end.
+                      </li>
+                    </ul>
+                    <p>
+                      Ready to jack into this cyberpunk knowledge quest? Click
+                      the "Start Game" button below to initiate your mission!
+                    </p>
+                  </div>
+                  <div className="flex justify-center">
+                    <button
+                      onClick={() => {
+                        setShowCategoriesModal(true);
+                      }}
+                      className="bg-black border-2 border-cyan-200/50 text-gray-300 font-semibold py-2 px-6 rounded-sm 
+                             hover:bg-cyan-300 hover:text-black 
+                             transition-all duration-300 ease-in-out 
+                             shadow-lg shadow-cyan-200/50
+                             focus:outline-none focus:ring-2 focus:ring-cyan-200/50 focus:ring-opacity-50 
+                             relative overflow-hidden group"
+                    >
+                      <span className="relative z-10">Start Game</span>
+                      <span className="absolute inset-0 bg-cyan-200/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+                    </button>
+                  </div>
                 </div>
-                <ul className="list-disc list-inside mb-6 space-y-2">
-                  <li>Click on the answer options to submit your choice.</li>
-                  <li>
-                    You have a limited number of lives. Incorrect answers will
-                    reduce your lives.
-                  </li>
-                  <li>Your score will increase with correct answers.</li>
-                  <li>
-                    When you run out of lives or complete all questions, the
-                    game will end.
-                  </li>
-                </ul>
-                Ready to embark on this epic quest of knowledge? Click the
-                "Start Game" button below to begin your adventure!
-              </div>
-              <motion.button
-                className="px-6 py-3 bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-gray-800 font-bold text-lg"
-                onClick={() => setShowInstructions(false)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Start Game
-              </motion.button>
+              )}
             </motion.div>
           ) : (
             <motion.div
+              className="h-full w-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -135,23 +186,34 @@ export function SinglePlayer() {
                 inGame ? (
                   <Quiz />
                 ) : (
-                  // only create game if lives is more than 0
                   <CreateGame
                     onCreated={(id) => {
-                      // Store the gameId in sessionStorage
                       sessionStorage.setItem("gameId", id);
                     }}
                   />
                 )
               ) : (
-                <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
+                <h2 className="text-xl sm:text-2xl font-bold text-center bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent">
                   Please connect your wallet to start the adventure!
                 </h2>
               )}
             </motion.div>
           )}
         </motion.div>
+        <GameFooter />
+        <MusicPlayer />
       </motion.div>
+      {showCategoriesModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <CategoriesModal
+            onClose={() => setShowCategoriesModal(false)}
+            action={() => {
+              setShowInstructions(false);
+              setShowCategoriesModal(false);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

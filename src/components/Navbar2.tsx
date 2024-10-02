@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/Logo.png";
-import { FaBars, FaTimes, FaPlay } from "react-icons/fa";
+import { FaBars, FaTimes, FaPlay, FaWallet } from "react-icons/fa";
 import "./Navbar.css";
 import { ConnectButton } from "@mysten/dapp-kit";
 import "@suiet/wallet-kit/style.css";
@@ -35,9 +35,7 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex space-x-4 items-center">
           <div className="w-2" />
 
-          <ConnectButton className="bg-gradient-to-r from-[#00ffff] to-[#8a2be2] hover:from-[#00ffff] hover:to-[#53b4b4]  rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-            Connect Wallet
-          </ConnectButton>
+          <ConnectButton>Connect Wallet</ConnectButton>
         </div>
       </div>
 
@@ -49,7 +47,7 @@ const Navbar: React.FC = () => {
             : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
-        <ConnectButton className="bg-gradient-to-r from-[#00ffff] to-[#8a2be2] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+        <ConnectButton className="rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
           Connect Wallet
         </ConnectButton>
       </div>

@@ -8,11 +8,7 @@ interface CustomButtonProps {
 
 const CustomButton: React.FC<CustomButtonProps> = ({ onClick, children }) => {
   return (
-    <button
-      className="custom-button"
-      onClick={onClick}
-      data-text={children as string}
-    >
+    <button className="custom-button" onClick={onClick}>
       {children}
     </button>
   );

@@ -8,34 +8,51 @@ import { SinglePlayer } from "./pages/Game/SinglePlayer";
 import { MultiplayerPoints } from "./pages/Game/MultiplayerPoints";
 import { MultiplayerStakes } from "./pages/Game/MultiplayerStakes";
 
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Pages with Layout */}
-        <Route element={<Layout />}>
-          <Route path="/" element={<LandingPage />} />
-          {/* Add other page routes here */}
-        </Route>
+    <div className="App">
+      <Router>
+        <Routes>
+          {/* Pages with Layout */}
+          <Route element={<Layout />}>
+            <Route path="/" element={<LandingPage />} />
+            {/* Add other page routes here */}
+          </Route>
 
-        {/* game Landing */}
-        <Route path="/game" element={<GamePage />} />
-        <Route path="/game/single-player" element={<SinglePlayer />} />
-        <Route
-          path="/game/multiplayer-points"
-          element={<MultiplayerPoints />}
-        />
-        <Route
-          path="/game/multiplayer-stakes"
-          element={<MultiplayerStakes />}
-        />
+          {/* game Landing */}
+          <Route path="/game" element={<GamePage />} />
+          <Route path="/game/single-player" element={<SinglePlayer />} />
+          <Route
+            path="/game/multiplayer-points"
+            element={<MultiplayerPoints />}
+          />
+          <Route
+            path="/game/multiplayer-stakes"
+            element={<MultiplayerStakes />}
+          />
 
-        {/* Game with GameLayout */}
-        {/* <Route element={<GameLayout />}>
+          {/* Game with GameLayout */}
+          {/* <Route element={<GameLayout />}>
           
-        </Route> */}
-      </Routes>
-    </Router>
+          </Route> */}
+        </Routes>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </Router>
+    </div>
   );
 }
 

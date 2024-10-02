@@ -1,80 +1,52 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaTwitter, FaEnvelope, FaGithub } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between">
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h3 className="text-xl font-bold mb-2">GMFI</h3>
-            <p className="text-gray-400">
-              Empowering gamers through financial intelligence.
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-8 md:mb-0 text-center md:text-left">
+            <h3 className="text-2xl font-bold mb-2 text-blue-400">GMFI</h3>
+            <p className="text-gray-300 max-w-md">
+              Empowering gamers through financial intelligence. Learn, play, and
+              grow your financial knowledge.
             </p>
           </div>
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-2">Quick Links</h4>
-            <ul>
-              <li>
-                <Link
-                  to="/"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/game"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Game
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/contact"
-                  className="text-gray-400 hover:text-white transition duration-300"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/4 mb-6 md:mb-0">
-            <h4 className="text-lg font-semibold mb-2">Connect With Us</h4>
-            <div className="flex space-x-4">
+          <div className="text-center md:text-right">
+            <h4 className="text-lg font-semibold mb-4 text-blue-400">
+              Connect With Us
+            </h4>
+            <div className="flex justify-center md:justify-end space-x-6">
               <a
-                href="#"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="https://x.com/teamsparksui?t=ycf5JwKwa_3L5kUfhCFSRg&s=09"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition duration-300"
+                aria-label="Twitter"
               >
-                <FaTwitter size={24} />
+                <FaTwitter size={28} />
               </a>
               <a
-                href="#"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="mailto:teamspark.sui@gmail.com"
+                className="text-gray-300 hover:text-white transition duration-300"
+                aria-label="Email"
               >
-                <FaFacebook size={24} />
+                <FaEnvelope size={28} />
               </a>
               <a
-                href="#"
-                className="text-gray-400 hover:text-white transition duration-300"
+                href="https://github.com/yourgithub"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition duration-300"
+                aria-label="GitHub"
               >
-                <FaInstagram size={24} />
+                <FaGithub size={28} />
               </a>
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+        <div className="mt-12 pt-8 border-t border-gray-700 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} GMFI. All rights reserved.</p>
         </div>
       </div>

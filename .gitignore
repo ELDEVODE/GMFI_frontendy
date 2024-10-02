@@ -23,7 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-
-src/assets/music
-
 move/gmfi/build

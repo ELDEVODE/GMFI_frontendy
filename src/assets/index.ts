@@ -9,6 +9,7 @@ export { default as cutout5 } from "./cutouts/cutout5.png";
 export { default as cutout6 } from "./cutouts/cutout6.png";
 export { default as cutout7 } from "./cutouts/cutout7.png";
 export { default as cutout8 } from "./cutouts/cutout8.png";
+export { default as cutoutA } from "./cutouts/cutoutA.png";
 export { default as flybot } from "./cutouts/flybot.png";
 export { default as flybot1 } from "./cutouts/flybot1.png";
 export { default as community1 } from "./cutouts/community1.png";
@@ -42,3 +43,5 @@ export { default as arena7 } from "./arena7.jpg";
 export { default as arena8 } from "./arena8.jpg";
 // export { default as arena9 } from "./arena9.jpg";
 // export { default as arena10 } from "./arena10.jpg";
+
+export { default as life } from "./cutouts/live.png";

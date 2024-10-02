@@ -1,56 +1,63 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FaRocket,
-  FaSatellite,
-  FaSpaceShuttle,
-  FaGlobe,
-  FaUserAstronaut,
+  FaGamepad,
+  FaUsers,
+  FaChartLine,
+  FaCube,
 } from "react-icons/fa";
 
 interface MilestoneProps {
+  phase: string;
   title: string;
   description: string;
+  details: string[];
   delay: number;
   icon: React.ReactNode;
   isLeft: boolean;
 }
 
 const Milestone: React.FC<MilestoneProps> = ({
+  phase,
   title,
   description,
+  details,
   delay,
   icon,
   isLeft,
 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const controls = useAnimation();
-
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [isInView, controls]);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={{
-        hidden: { opacity: 0, x: isLeft ? -50 : 50 },
-        visible: { opacity: 1, x: 0, transition: { duration: 0.8, delay } },
-      }}
+      initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay }}
       className={`flex items-center mb-24 ${isLeft ? "flex-row-reverse" : ""}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div
         className={`w-1/2 ${isLeft ? "pl-8" : "pr-8"} ${
           isLeft ? "text-right" : "text-left"
         }`}
       >
-        <h3 className="text-2xl font-bold text-cyan-400 mb-2">{title}</h3>
+        <h3 className="text-2xl font-bold text-cyan-400 mb-2">{phase}</h3>
+        <h4 className="text-xl font-semibold text-white mb-2">{title}</h4>
         <p className="text-gray-300">{description}</p>
+        {isHovered && (
+          <motion.ul
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-4 text-gray-400 list-disc list-inside"
+          >
+            {details.map((detail, index) => (
+              <li key={index}>{detail}</li>
+            ))}
+          </motion.ul>
+        )}
       </div>
       <motion.div
         initial={{ scale: 0, rotate: 0 }}
@@ -68,29 +75,56 @@ const Milestone: React.FC<MilestoneProps> = ({
 const Roadmap = () => {
   const roadmapData = [
     {
-      title: "Q2 2023",
-      description: "Launch of GMFI token and initial community building",
+      phase: "Phase 1: Ignition",
+      title: "Launching the Arcade Universe",
+      description: "Introducing Time Accuracy Mode and Multiplayer Onboarding",
+      details: [
+        "Arcade Gaming Debut: Time Accuracy Mode for precision-driven gameplay",
+        "Multiplayer Onboarding: Head-to-head challenges for ultimate arcade competition",
+      ],
       icon: <FaRocket size={24} />,
     },
     {
-      title: "Q3 2023",
-      description: "Release of staking and farming features",
-      icon: <FaSatellite size={24} />,
+      phase: "Phase 2: Q1",
+      title: "Unleashing In-Game Dynamics",
+      description: "Enhancing gameplay with purchases and community features",
+      details: [
+        "In-Game Purchases & Boosters: Exclusive power-ups and premium upgrades",
+        "Community World Chat: Global gaming network for connections and strategy",
+      ],
+      icon: <FaGamepad size={24} />,
     },
     {
-      title: "Q4 2023",
-      description: "Integration with major DeFi protocols",
-      icon: <FaSpaceShuttle size={24} />,
+      phase: "Phase 3: Q2",
+      title: "Raising the Stakes",
+      description: "Introducing competitive modes and global rankings",
+      details: [
+        "Multiplayer Stakes Mode: High-stakes battles where every move counts",
+        "Global Leaderboard: Compete against the best and climb the ranks",
+      ],
+      icon: <FaUsers size={24} />,
     },
     {
-      title: "Q1 2024",
-      description: "Launch of GMFI governance platform",
-      icon: <FaGlobe size={24} />,
+      phase: "Phase 4: Q3",
+      title: "The Evolution Begins",
+      description: "Expanding the platform with tokens and new experiences",
+      details: [
+        "GMFi Token Launch: Native token for transactions and rewards",
+        "Multi-Gaming Experience: New game genres",
+        "RWA Introduction: Real-World Asset integration",
+      ],
+      icon: <FaChartLine size={24} />,
     },
     {
-      title: "Q2 2024",
-      description: "Expansion to multiple blockchain networks",
-      icon: <FaUserAstronaut size={24} />,
+      phase: "Phase 5: Q4",
+      title: "Enter the Realm of Ownership",
+      description: "Introducing real-world asset integration and ownership",
+      details: [
+        "Community Expansion: Grow global presence and player base",
+        "Real World Asset Integration: Co-ownership of physical and digital assets",
+        "Fractional Ownership: Become fractional owners of real assets",
+      ],
+      icon: <FaCube size={24} />,
     },
   ];
 
@@ -109,13 +143,25 @@ const Roadmap = () => {
           {roadmapData.map((milestone, index) => (
             <Milestone
               key={index}
+              phase={milestone.phase}
               title={milestone.title}
               description={milestone.description}
+              details={milestone.details}
               delay={index * 0.2}
               icon={milestone.icon}
               isLeft={index % 2 === 0}
             />
           ))}
+        </div>
+        <div className="text-center mt-16">
+          <h3 className="text-3xl font-bold text-white mb-4">
+            Year 2 – Unstoppable Growth
+          </h3>
+          <p className="text-gray-300">
+            Scale up gaming modes, onboard strategic partners, and continuously
+            enrich the GMFi ecosystem. Stay tuned as we transform digital
+            engagement and redefine blockchain gaming.
+          </p>
         </div>
       </div>
     </div>

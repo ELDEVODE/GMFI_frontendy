@@ -26,6 +26,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
   useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio();
+      audioRef.current.src = tracks[currentTrackIndex].url;
+      audioRef.current.load();
     }
 
     const handleEnded = () => {
@@ -38,16 +40,12 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
       if (audioRef.current) {
         audioRef.current.removeEventListener("ended", handleEnded);
         audioRef.current.pause();
-        audioRef.current.currentTime = 0;
       }
     };
   }, []);
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.src = tracks[currentTrackIndex].url;
-      audioRef.current.load();
-
       if (isMusicPlaying) {
         audioRef.current
           .play()
@@ -57,7 +55,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({
         audioRef.current.pause();
       }
     }
-  }, [currentTrackIndex, isMusicPlaying, tracks]);
+  }, [isMusicPlaying]);
 
   const showTrackToast = () => {
     const { name, artist } = tracks[currentTrackIndex];

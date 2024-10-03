@@ -24,6 +24,7 @@ import GameStatBar from "../../components/GameStatBar";
 import GameFooter from "../../components/GameFooter";
 import MusicPlayer from "../../components/MusicPlayer";
 import CategoriesModal from "../../modals/CategoriesModal";
+import { useQuizStore } from "../../store/store";
 
 export function SinglePlayer() {
   const currentAccount = useCurrentAccount();
@@ -43,6 +44,8 @@ export function SinglePlayer() {
   ];
 
   const [randomArena, setRandomArena] = useState("");
+
+  const { loading, questions } = useQuizStore();
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * arenas.length);
@@ -184,7 +187,7 @@ export function SinglePlayer() {
             >
               {currentAccount ? (
                 inGame ? (
-                  <Quiz />
+                  !loading && <Quiz questions={questions} />
                 ) : (
                   <CreateGame
                     onCreated={(id) => {

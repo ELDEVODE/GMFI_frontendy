@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { defaultQuestions } from "./questions"; // Import default questions
+import { defaultQuestions, CategoryQuestions } from "./questions"; // Import default questions
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -25,7 +25,7 @@ interface QuizState {
 }
 
 export const useQuizStore = create<QuizState>((set) => ({
-  questions: [defaultQuestions],
+  questions: [],
   currentQuestionIndex: 0,
   score: 0,
   lives: 3,
@@ -61,26 +61,28 @@ export const useQuizStore = create<QuizState>((set) => ({
   setDifficulty: (difficulty) => set({ difficulty }),
   fetchQuestions: async (category, difficulty, number = 10) => {
     set({ loading: true, error: false });
-    set({ questions: defaultQuestions, error: false, loading: false })
-    // sessionStorage.setItem("questions", JSON.stringify(ques));
-    // try {
-    //   const response = await axios.post(`${apiUrl}/api/generate-questions`, {
-    //     category,
-    //     difficulty,
-    //     number,
-    //   });
-    //   const questions = response.data.questions;
-    //   if (questions && questions.length > 0) {
-    //     set({ questions });
-    //     sessionStorage.setItem("questions", JSON.stringify(questions)); // Save questions to session storage
-    //   } else {
-    //     throw new Error("No questions received from API");
-    //   }
-    // } catch (error) {
-    //   console.error("Failed to fetch questions:", error);
-    //   set({ questions: defaultQuestions, error: true }); // Use default questions on error
-    // } finally {
-    //   set({ loading: false });
-    // }
+    // set({ questions: defaultQuestions, error: false, loading: false })
+    // sessionStorage.setItem("questions", JSON.stringify(question));
+    try {
+      const response = await axios.post(`${apiUrl}/api/generate-questions`, {
+        category,
+        difficulty,
+        number,
+      });
+      const questions = response.data.questions;
+      if (questions && questions.length > 0) {
+        set({ questions });
+        sessionStorage.setItem("questions", JSON.stringify(questions)); // Save questions to session storage
+      } else {
+        throw new Error("No questions received from API");
+      }
+    } catch (error) {
+      console.error("Failed to fetch questions:", error);
+      const categoryQuestions = CategoryQuestions[category]
+      console.log(categoryQuestions[0].questions);
+      set({ questions: categoryQuestions[0].questions, error: false }); // Use default questions on error
+    } finally {
+      set({ loading: false });
+    }
   },
 }));

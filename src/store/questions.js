@@ -1,4 +1,4 @@
-const questions = {
+export const CategoryQuestions = {
   "Pop Culture": [
     {
       questions: [

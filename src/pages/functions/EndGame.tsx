@@ -50,12 +50,12 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
 
   return (
     <motion.div
-      className="py-20 bg-gradient-to-b from-[#2a0e61] to-[#1d0a3a] text-white flex items-center justify-center"
+      className="py-20 bg-gradient-to-b from-[#2a0e614b] to-[#1d0a3a] text-white flex items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-center">
+      <div className="bg-gradient-to- play-modal-wrapperq from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-center">
         <motion.h2
           className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent"
           initial={{ scale: 0.9 }}
@@ -96,7 +96,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
       arguments: [
         tx.object(gameId!),
         tx.object(playerStatsId!),
-        tx.pure.u64(10),
+        tx.pure.u64(points),
       ],
       target: `${counterPackageId}::gmfi::end_session`,
     });

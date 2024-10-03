@@ -5,9 +5,9 @@ import { EndGame } from "../pages/functions/EndGame";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export const Quiz = () => {
+export const Quiz = ({ questions }) => {
   const {
-    questions,
+    // questions,
     currentQuestionIndex,
     score,
     lives,
@@ -18,12 +18,12 @@ export const Quiz = () => {
   } = useQuizStore();
   const [gameOver, setGameOver] = useState(false);
 
-  useEffect(() => {
-    const storedQuestions = sessionStorage.getItem("questions");
-    if (storedQuestions) {
-      useQuizStore.setState({ questions: JSON.parse(storedQuestions) });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedQuestions = sessionStorage.getItem("questions");
+  //   if (storedQuestions) {
+  //     useQuizStore.setState({ questions: JSON.parse(storedQuestions) });
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (
@@ -76,10 +76,10 @@ export const Quiz = () => {
     );
   }
 
-  if (gameOver && !questions && questions?.length === 0) {
+  if (gameOver) {
     return (
       <motion.div
-        className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
+        className="bg-gradient-to- play-modal-wrapperq  from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -101,7 +101,7 @@ export const Quiz = () => {
 
   return (
     <motion.div
-      className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
+      className="bg-gradient-to- play-modal-wrapperq from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-white"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

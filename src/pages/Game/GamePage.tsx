@@ -101,7 +101,7 @@ export default function GamePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
+    <div className="h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
       <Navbar />
       <div
         className="h-full inset-0 absolute"
@@ -125,7 +125,7 @@ export default function GamePage() {
           }}
         />
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative h-full z-10 flex flex-col items-center justify-center h-full text-center px-4">
+        <div className="relative h-full z-10 flex flex-col items-center justify-center text-center px-4">
           <motion.img
             src={mainType}
             alt=""

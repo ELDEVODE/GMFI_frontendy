@@ -89,13 +89,14 @@ const PointsDisplay: React.FC<{ points: number }> = ({ points }) => {
         Points:
       </motion.span>
       <motion.span
-        key={points}
+        // key={points}
         className="text-glow-sm"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        // initial={{ y: -20, opacity: 0 }}
+        // animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 10 }}
       >
         {points}
+        {/* "hello" */}
       </motion.span>
     </motion.div>
   );

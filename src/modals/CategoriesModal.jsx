@@ -25,13 +25,18 @@ const CategoriesModal = ({ onClose, action }) => {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setCategory(category);
+    if (selectedDifficulty) {
+      fetchQuestions(category, selectedDifficulty);
+    }
   };
 
   const handleDifficultySelect = async (difficulty) => {
     setSelectedDifficulty(difficulty);
-    setCategory(selectedCategory);
     setDifficulty(difficulty);
-    fetchQuestions(selectedCategory, difficulty);
+    if (selectedCategory) {
+      fetchQuestions(selectedCategory, difficulty);
+    }
     if (action) {
       action();
     }

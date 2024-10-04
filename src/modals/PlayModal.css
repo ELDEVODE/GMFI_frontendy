@@ -32,9 +32,18 @@
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
+.play-modal-wrapperq {
+  background-color: rgba(0, 10, 20, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  /* max-width: 90%; */
+  /* width: 400px; */
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
 .play-modal-container {
   /* background-color: var(--background-color); */
-  backgrond: transparent;
+  background: transparent;
   border-radius: 0;
   padding: 30px;
   /* box-shadow: 0 0 20px rgba(64, 224, 208, 0.2); */

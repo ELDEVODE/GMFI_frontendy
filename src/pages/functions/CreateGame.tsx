@@ -127,6 +127,7 @@ export const CreateGame = ({
       {
         onSuccess: (result) => {
           const createdObject = result.effects?.created?.[0];
+          refetch();
           if (createdObject) {
             const objectId = createdObject.reference.objectId;
             onCreated(objectId);
@@ -135,12 +136,14 @@ export const CreateGame = ({
             // Store the gameId in sessionStorage instead of the hash
             sessionStorage.setItem("gameId", objectId);
             resetQuiz();
+            refetch();
           }
           console.log(result);
           refetch();
         },
         onError: (error) => {
           console.error("Error creating game:", error);
+          refetch();
         },
       }
     );

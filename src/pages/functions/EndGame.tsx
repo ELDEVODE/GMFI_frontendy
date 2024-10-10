@@ -28,7 +28,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
   });
 
   // Get the gameId from session storage or initialize as null
-  const [gameId, setGameId] = useState<string | null>(() => {
+  const [gameId] = useState<string | null>(() => {
     const storedGameId = sessionStorage.getItem("gameId");
     return isValidSuiObjectId(storedGameId) ? storedGameId : null;
   });
@@ -107,7 +107,7 @@ export const EndGame = ({ onCreated }: { onCreated: (id: string) => void }) => {
       },
       {
         onSuccess: (result) => {
-          const objectId = result.effects?.created?.[0]?.reference?.objectId;
+          const objectId = result?.effects?.created?.[0]?.reference?.objectId;
           toast.success("You earned " + points + " points!", {
             position: "bottom-center",
             autoClose: 4000,

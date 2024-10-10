@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar2";
 import { useWallet } from "@suiet/wallet-kit";
@@ -92,19 +94,7 @@ export function SinglePlayer() {
         backgroundPosition: "center",
       }}
     >
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        transition={Bounce}
-      />
+      <ToastContainer />
       {/* <Navbar /> */}
       <motion.div
         className={`${

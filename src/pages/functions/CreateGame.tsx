@@ -41,6 +41,7 @@ export const CreateGame = ({
       // Refetch data for the gameId stored in session
       refetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameId]);
 
   const { refetch } = useSuiClientQuery("getObject", {
@@ -55,12 +56,12 @@ export const CreateGame = ({
 
   return (
     <motion.div
-      className="py-20 bg-gradient-to-b from-[#2a0e61] to-[#1d0a3a] text-white flex flex-col items-center justify-center"
+      className="py-20 bg-gradient-to-b from-[#2a0e6167] play-modal-wrapperq to-[#1d0a3a7a] text-white flex flex-col items-center justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-gradient-to-r from-[#3a1466] to-[#251248] p-8 rounded-2xl shadow-xl text-center">
+      <div className="bg-gradient-o-r from-[#3a1466] to-[#25124879] .play-modal-overlay .play-modal-overlay.transparent p-8 rounded-2xl shadow-2xl shadow-slate-600 text-center">
         <motion.h2
           className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#00ffff] to-[#d09dff] bg-clip-text text-transparent"
           initial={{ scale: 0.9 }}

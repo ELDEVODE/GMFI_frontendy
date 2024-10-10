@@ -40,17 +40,7 @@ function App() {
           
           </Route> */}
         </Routes>
-        <ToastContainer
-          position="bottom-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        <ToastContainer />
       </Router>
     </div>
   );

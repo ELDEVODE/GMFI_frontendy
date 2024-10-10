@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { defaultQuestions, CategoryQuestions } from "./questions"; // Import default questions
+import { CategoryQuestions } from "./questions"; // Import default questions
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -54,7 +54,7 @@ export const useQuizStore = create<QuizState>((set) => ({
     }),
   isMusicPlaying: true,
   toggleMusic: () =>
-    set((state) => ({ isMusicPlaying: !state.isMusicPlaying })),
+    set((state) => ({ isMusicPlaying: !state?.isMusicPlaying })),
   category: "",
   setCategory: (category) => set({ category }),
   difficulty: "",
